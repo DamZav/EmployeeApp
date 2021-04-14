@@ -6,8 +6,9 @@ import { MaterialIcons, Entypo } from '@expo/vector-icons';
 
 
 
-const Profile = ()=>{
+const Profile = (props)=>{
 
+    const {id, name, email, salary, phone, position, picture} = props.route.params.item
     const openDial=()=>{
         if(Platform.OS === "android"){
             Linking.openURL("tel:12345")
@@ -24,31 +25,31 @@ const Profile = ()=>{
             <View style={{alignItems:"center"}}>
                 <Image
                 style={{width:140, height:140, borderRadius:70, marginTop:-60}}
-                source={{uri:"https://images.unsplash.com/photo-1485206412256-701ccc5b93ca?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=512&q=80"}}
+                source={{uri:picture}}
                 />
             </View>
             <View style={{alignItems:"center", margin:7}}>
-                <Title>Josefino Paez</Title>
-                <Text style={styles.mytext}>Web Developer</Text>
+                <Title>{name}</Title>
+                <Text style={styles.mytext}>{position}</Text>
             </View>
             <Card style={styles.mycard} onPress={()=>{
                 Linking.openURL("mailto:miau@miau.com")
             }}>
                 <View style={styles.cardContent}>
                     <MaterialIcons name="email" size={32} color="#006aff" />
-                    <Text style={styles.mytext}>miau@miau.com</Text>
+                    <Text style={styles.mytext}>{email}</Text>
                 </View>
             </Card>
             <Card style={styles.mycard} onPress={()=>openDial()}>
                 <View style={styles.cardContent}>
                     <Entypo name="phone" size={32} color="#006aff" />
-                    <Text style={styles.mytext}>5607563022</Text>
+                    <Text style={styles.mytext}>{phone}</Text>
                 </View>
             </Card>
             <Card style={styles.mycard}>
                 <View style={styles.cardContent}>
                     <MaterialIcons name="attach-money" size={32} color="#006aff" />
-                    <Text style={styles.mytext}>20 000 </Text>
+                    <Text style={styles.mytext}>{salary}</Text>
                 </View>
             </Card>
             <View style={{flexDirection:"row", justifyContent:"space-around", padding:5}}>
