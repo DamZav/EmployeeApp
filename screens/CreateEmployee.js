@@ -22,11 +22,19 @@ const CreateEmployee = ()=>{
                     aspect:[1,1],
                     quality:0.5
                 })
-                console.log(data)
+                if(!data.cancelled){
+                    let newfile = { 
+                        uri:data.uri,
+                        type:`test/${data.uri.split(".")[1]}`,
+                        name:`test.${data.uri.split(".")[1]}` 
+                    }
+                    handleUpload(newfile)
+                }
         }else{
             alert.alert("You need to give up permission to work")
         }
     }
+
     const pickFromCamera = async ()=>{
         const {granted} = await Permissions.askAsync(Permissions.CAMERA)
         if (granted){
@@ -36,10 +44,33 @@ const CreateEmployee = ()=>{
                     aspect:[1,1],
                     quality:0.5
                 })
-                console.log(data)
+                if(!data.cancelled){
+                    let newfile = { 
+                        uri:data.uri,
+                        type:`test/${data.uri.split(".")[1]}`,
+                        name:`test.${data.uri.split(".")[1]}` 
+                    }
+                    handleUpload(newfile)
+                }
         }else{
             alert.alert("You need to give up permission to work")
         }
+    }
+
+    const handleUpload = (image)=>{
+        const data =  new FormData()
+        data.append('file',image)
+        data.append('upload_preset','employeeApp')
+        data.append("cloud_name","eldosazul")
+
+        fetch("https://api.cloudinary.com/v1_1/eldosazul/image/upload",{
+                method:"post",
+                body:data
+        }).then(res=>res.json()).
+        then(data=>{
+            setPicture(data.url)
+            setModal(false)
+        })
     }
     
     return(
@@ -78,7 +109,7 @@ const CreateEmployee = ()=>{
                     onChangeText={text => setSalary(text)}
                 />
                 <Button style={styles.inputStyle}
-                icon="upload" 
+                icon={picture==""?"upload":"check"}
                 mode="contained" 
                 theme={theme}
                 onPress={() => setModal(true)}>
