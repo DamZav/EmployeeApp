@@ -6,16 +6,16 @@ import Profile from './Profile';
 
 const Home = ({navigation})=>{
     const data = [
-        {id:1, name:'dam', position:'Dami'},
-        {id:2, name:'ern', position:'Mau'},
-        {id:3, name:'pand', position:'Pandafari'},
-        {id:4, name:'grei', position:'Greill'},
-
+        {id:"1", name:'Dami', email:"dami@abc.com", salary: "50 000 DLS", phone: "123", position:'Dev Web', picture:'https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8MnwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'},
+        {id:"2", name:'Ern', email:"ern@abc.com", salary: "40 000 DLS", phone: "456", position:'App', picture:'https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8MnwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'},
+        {id:"3", name:'Pandai', email:"pandai@abc.com", salary: "30 000 DLS", phone: "789", position:'Finances', picture:'https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8MnwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'},
+        {id:"4", name:'Alan', email:"alan@abc.com", salary: "20 000 DLS", phone: "258", position:'Chels', picture:'https://images.unsplash.com/photo-1551179939-b839002d0a18?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8cGVyc29ufGVufDB8MnwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60'},    
     ]
+
     const renderList = ((item)=>{
           return(
             <Card style={styles.mycard} 
-            onPress={()=>navigation.navigate(Profile)}
+            onPress={()=>navigation.navigate("Profile", {item})}
             >
             <View style={styles.cardView}>
                 <Image
@@ -38,7 +38,7 @@ const Home = ({navigation})=>{
                 renderItem={({item})=>{
                     return renderList(item)
                 }}
-                keyExtractor={item=>`${item.id}`}
+                keyExtractor={item=>item.id}
             />
             <FAB onPress={()=>navigation.navigate("Create")}
                     style={styles.fab}
